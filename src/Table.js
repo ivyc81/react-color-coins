@@ -39,7 +39,7 @@ class Table extends Component {
 
         const newColor = Table.allColors[this.randomChoice(Table.allColors)];
 
-        const newState = this.state.colorArr.slice(0);
+        const newState = [...this.state.colorArr];
         newState[index] = newColor;
 
         this.setState({colorArr: newState});
