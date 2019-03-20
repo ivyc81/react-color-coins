@@ -13,44 +13,63 @@ class Table extends Component {
     '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
     '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
 
+    static defaultProps = {
+        numBox: 5,
+    }
+
     constructor(props){
         super(props);
         this.state = {
             colorArr: this.randomColors(),
+            text: [],
         };
         this.handleClick = this.handleClick.bind(this);
     }
 
-    randomChoice(arr){
-        return Math.floor(Math.random()*arr.length);
+    randomChoice(limit){
+        return Math.floor(Math.random()*limit);
     }
 
     randomColors(){
         const colorArr = [];
         for(let i = 0; i < this.props.numBox; i++){
-            let color = Table.allColors[this.randomChoice(Table.allColors)];
+            // let color = Table.allColors[this.randomChoice(Table.allColors.length)];
+            const color = this.randomColor();
             colorArr.push(color);
         }
         return colorArr;
     }
 
-    handleClick(evt){
-        const index = this.randomChoice(this.state.colorArr);
+    randomColor(){
+        const color = [];
+        for(let j = 0; j < 3; j++){
+            const val = this.randomChoice(256);
+            color.push(val);
+        }
 
-        const newColor = Table.allColors[this.randomChoice(Table.allColors)];
+        return color;
+    }
+
+    handleClick(evt){
+        const index = this.randomChoice(this.state.colorArr.length);
+
+        const newColor = this.randomColor();
 
         const newState = this.state.colorArr.map( (ele, idx) => {
             return idx === index ? newColor : ele;
         })
 
-        this.setState({colorArr: newState});
+        const newText = [];
+        newText[index] = 'Changed';
+
+        this.setState({colorArr: newState, text: newText});
     }
 
     render() {
         return (
             <div className="Table">
-                {this.state.colorArr.map(b =>
-                 <Box color={b} />)}
+                {this.state.colorArr.map((b, i) =>
+                 <Box color={b} text={ this.state.text[i] }/>)}
                  <button onClick={ this.handleClick }>Change</button>
             </div>
         );

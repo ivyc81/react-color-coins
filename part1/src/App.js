@@ -7,6 +7,7 @@ class App extends Component {
     return (
       <div className="App">
         <Table numBox={16} />
+        <Table/>
       </div>
     );
   }

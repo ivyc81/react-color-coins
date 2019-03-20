@@ -1,0 +1,15 @@
+.Coin {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    display: flex;
+    margin: 2px auto;
+    justify-content: center;
+    align-items: center;
+    background-color: gray;
+}
+
+.Coin img {
+    width: 150px;
+    height: 150px;
+}
